@@ -64,6 +64,7 @@ import ValidationBlockedModal from "./components/ValidationBlockedModal"
 import OperatingPointModal from "./components/OperatingPointModal"
 import AcAnalysisModal from "./components/AcAnalysisModal"
 import ComponentPropertiesModal from "./components/ComponentPropertiesModal"
+import AboutModal from "./components/AboutModal"
 import NetNameModal from "./components/schematic/NetNameModal"
 import AutomaticMeasurementsPanel from "./components/AutomaticMeasurementsPanel"
 import CircuitTabBar from "./components/schematic/CircuitTabBar"
@@ -1022,6 +1023,7 @@ function SchematicEditor() {
   // Simulation & Analysis State
   const [isConfigAnalysisOpen, setIsConfigAnalysisOpen] = useState(false)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false)
   const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false)
   const [analysisConfig, setAnalysisConfig] = useState<AnalysisConfig>(DEFAULT_ANALYSIS_CONFIG)
   const [solverSettings, setSolverSettings] = useState<SolverSettings>(DEFAULT_SOLVER_SETTINGS)
@@ -4301,6 +4303,16 @@ function SchematicEditor() {
                   <button className="dropdown-item" onClick={() => setOpenMenu(null)}>
                     <span>{t('menu.ltspiceReference')}</span>
                   </button>
+                  <div className="dropdown-separator" />
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      setIsAboutModalOpen(true)
+                      setOpenMenu(null)
+                    }}
+                  >
+                    <span>About ASAP (Credits & Licenses)</span>
+                  </button>
                 </div>
               )}
             </div>
@@ -5674,6 +5686,12 @@ function SchematicEditor() {
           setIsSettingsModalOpen(false)
           setSimMessage("Simulation solver settings updated")
         }}
+      />
+
+      {/* About ASAP & Open Source Credits Modal */}
+      <AboutModal
+        isOpen={isAboutModalOpen}
+        onClose={() => setIsAboutModalOpen(false)}
       />
 
       {/* Simulation Blocked Alert Popup */}
